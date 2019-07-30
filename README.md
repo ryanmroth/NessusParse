@@ -5,11 +5,11 @@ NessusParse ignores items with an 'Informational' or 'None' criticality rating.
 
 ### Installation
 
-NessusParse requires:
+NessusParse requires:  
   [Docopt](http://docopt.org/)
   [Lxml](https://lxml.de/)
-  [BeautifulSoup] (https://pypi.org/project/beautifulsoup4/)
-  [XlsxWriter] (https://xlsxwriter.readthedocs.io/#)
+  [BeautifulSoup](https://pypi.org/project/beautifulsoup4/)
+  [XlsxWriter](https://xlsxwriter.readthedocs.io/)
 
 #### Install the dependencies
 
