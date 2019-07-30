@@ -151,14 +151,18 @@ def create_xlsx(findings, outfile, compile_type, desc):
 if __name__ == '__main__':
   banner()
   args = docopt(__doc__, version='NessuStrip version 1.0', options_first=True)
-  soup = soup_nessus(args['INFILE'])
-  findings = compile_findings(soup, args['host'], args['--desc'])
-  if not args['OUTFILE']:
-    outfile = os.path.splitext(args['INFILE'])[0] + ".xlsx"
-    create_xlsx(findings, outfile, args['host'], args['--desc'])
+  if not args['INFILE'].endswith('.nessus'):
+    print("%sError: The input file must end with .nessus"% (R))
+    pass
   else:
-    if not args['OUTFILE'].endswith('.xlsx'):
-      print("%sError: The output file must end with .xlsx"% (R))
-      pass
+    soup = soup_nessus(args['INFILE'])
+    findings = compile_findings(soup, args['host'], args['--desc'])
+    if not args['OUTFILE']:
+      outfile = os.path.splitext(args['INFILE'])[0] + ".xlsx"
+      create_xlsx(findings, outfile, args['host'], args['--desc'])
     else:
-      create_xlsx(findings, args['OUTFILE'], args['host'], args['--desc'])
+      if not args['OUTFILE'].endswith('.xlsx'):
+        print("%sError: The output file must end with .xlsx"% (R))
+        pass
+      else:
+        create_xlsx(findings, args['OUTFILE'], args['host'], args['--desc'])
