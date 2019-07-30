@@ -22,8 +22,8 @@ $ pip install requirements.txt
 
 ```sh
 $ Usage:  NessusParse [options] (host | criticality) INFILE [OUTFILE]
-        NessusParse (-h | --help)
-        NessusParse (-v | --version)
+          NessusParse (-h | --help)
+          NessusParse (-v | --version)
 
 $ Required Options:
     host               Output file sorted by host
