@@ -90,14 +90,14 @@ def compile_findings(soup, compile_type, desc):
         elif compile_type and not desc:
           finding = [i.get('name'), criticality, item.get('pluginName')]
         elif not compile_type and desc:
-          finding = [criticality, i.get('name'), item.get('pluginName'), item.findChild("description", recursive=False).get_text()]
+          finding = [int(item.get('severity')), criticality, i.get('name'), item.get('pluginName'), item.findChild("description", recursive=False).get_text()]
         elif not compile_type and not desc:
-          finding = [criticality, i.get('name'), item.get('pluginName')]
+          finding = [int(item.get('severity')), criticality, i.get('name'), item.get('pluginName')]
         findings.append(finding)
   if compile_type:
     return sorted(findings, key=lambda item: socket.inet_aton(item[0]))
   else:
-    return sorted(findings, reverse=True)
+    return sorted(findings, key=lambda item: item[0])
 
 def create_xlsx(findings, outfile, compile_type, desc):
   print("%s[-] Writing output to file: %s%s%s%s" % (Y, W, B, outfile, W))
@@ -131,7 +131,7 @@ def create_xlsx(findings, outfile, compile_type, desc):
     worksheet.write('B1', 'IP Address', bold)
     worksheet.write('C1', 'Finding', bold)
     worksheet.write('D1', 'Description', bold)
-    for criticality, ip, name, description in (findings):
+    for severity, criticality, ip, name, description in (findings):
       worksheet.write(row, col, criticality)
       worksheet.write(row, col + 1, ip)
       worksheet.write(row, col + 2, name)
@@ -141,7 +141,7 @@ def create_xlsx(findings, outfile, compile_type, desc):
     worksheet.write('A1', 'Criticality', bold)
     worksheet.write('B1', 'IP Address', bold)
     worksheet.write('C1', 'Finding', bold)
-    for criticality, ip, name in (findings):
+    for severity, criticality, ip, name in (findings):
       worksheet.write(row, col, criticality)
       worksheet.write(row, col + 1, ip)
       worksheet.write(row, col + 2, name)
